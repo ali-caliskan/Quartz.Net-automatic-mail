@@ -1,24 +1,24 @@
 
 
-//form içine
+//form iÃ§ine
 private IScheduler _scheduler;
 
-//public table içine 
+//public table iÃ§ine 
 InitializeScheduler();
 
 //static string kimeYollanacak;
 static List<string> kimeYollanacakList = new List<string>();
 private void InitializeScheduler()
 {
-    // Quartz.NET Scheduler'ını oluştur
+    // Quartz.NET Scheduler'Ã½nÃ½ oluÃ¾tur
     var schedulerFactory = new StdSchedulerFactory();
     _scheduler = schedulerFactory.GetScheduler().Result;
     _scheduler.Start().Wait();
 
-    // Mail gönderme görevini tanımla
+    // Mail gÃ¶nderme gÃ¶revini tanÃ½mla
     var mailJob = JobBuilder.Create<MailJob>().Build();
 
-    // Mail gönderme trigger'ını oluştur
+    // Mail gÃ¶nderme trigger'Ã½nÃ½ oluÃ¾tur
     var mailTrigger = TriggerBuilder.Create();
 
     mailTrigger.WithSimpleSchedule(s =>
@@ -27,13 +27,13 @@ private void InitializeScheduler()
              // s.WithIntervalInHours(24 / (int)ReportDailyNum.Value)
              .RepeatForever());
 
-    // Numeric up down değerine göre mail gönderme sayısı belirle
+    // Numeric up down deÃ°erine gÃ¶re mail gÃ¶nderme sayÃ½sÃ½ belirle
     int mailCount = (int)ReportDailyNum.Value;
 
 
     var trigger = mailTrigger.Build();
 
-    // Mail gönderme görevini trigger ile scheduler'a ekle
+    // Mail gÃ¶nderme gÃ¶revini trigger ile scheduler'a ekle
     _scheduler.ScheduleJob(mailJob, trigger).Wait();
 
 
@@ -47,10 +47,10 @@ public class MailJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
 
-        // Mail gönderme işlemi
+        // Mail gÃ¶nderme iÃ¾lemi
         // string to = kimeYollanacak;
         string from = "testhesabi9@outlook.com";
-        string subject = "MYSİLO";
+        string subject = "MYSÃLO";
         string body = "This is a test mail. Sent on: " + DateTime.Now.ToString();
 
         if (secilenDeger == "SSL")
@@ -71,7 +71,7 @@ public class MailJob : IJob
             var message = new MailMessage(from, to, subject, body)
 
             {
-                //özel karakter ve türkçe karakter için.
+                //Ã¶zel karakter ve tÃ¼rkÃ§e karakter iÃ§in.
                 SubjectEncoding = Encoding.UTF8,
                 BodyEncoding = Encoding.UTF8
 
@@ -80,7 +80,7 @@ public class MailJob : IJob
 
             var client = new SmtpClient("smtp.outlook.com", 587)
             {
-                Credentials = new NetworkCredential("testhesabi9@outlook.com", "Deneme89."),
+                Credentials = new NetworkCredential("Mail", "Password"),
 
                 EnableSsl = enableSSL
 
@@ -107,7 +107,7 @@ private async void button3_Click(object sender, EventArgs e)
     //kimeYollanacak = Receptienstxt.Text.ToString();
     secilenDeger = SsslComboBox.SelectedItem.ToString();
     int mailCount = (int)ReportDailyNum.Value;
-    //EmailEnableCheckBox seçili ise mail gönderiliyor.
+    //EmailEnableCheckBox seÃ§ili ise mail gÃ¶nderiliyor.
     if (EmailEnableCheckBox.Checked)
     {
         InitializeScheduler();
