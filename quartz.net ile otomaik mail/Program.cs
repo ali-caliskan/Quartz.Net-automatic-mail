@@ -10,7 +10,7 @@ InitializeScheduler();
 static List<string> kimeYollanacakList = new List<string>();
 private void InitializeScheduler()
 {
-    // Quartz.NET Scheduler'ýný oluþtur
+    // Quartz.NET Scheduler oluştur
     var schedulerFactory = new StdSchedulerFactory();
     _scheduler = schedulerFactory.GetScheduler().Result;
     _scheduler.Start().Wait();
@@ -18,7 +18,7 @@ private void InitializeScheduler()
     // Mail gönderme görevini tanýmla
     var mailJob = JobBuilder.Create<MailJob>().Build();
 
-    // Mail gönderme trigger'ýný oluþtur
+    // Mail gönderme trigger oluþtur
     var mailTrigger = TriggerBuilder.Create();
 
     mailTrigger.WithSimpleSchedule(s =>
@@ -27,7 +27,7 @@ private void InitializeScheduler()
              // s.WithIntervalInHours(24 / (int)ReportDailyNum.Value)
              .RepeatForever());
 
-    // Numeric up down deðerine göre mail gönderme sayýsý belirle
+    // Numeric up down degerine göre mail gönderme sayiyi belirle
     int mailCount = (int)ReportDailyNum.Value;
 
 
@@ -47,7 +47,7 @@ public class MailJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
 
-        // Mail gönderme iþlemi
+        // Mail gönderme iilemi
         // string to = kimeYollanacak;
         string from = "testhesabi9@outlook.com";
         string subject = "MYSÝLO";
