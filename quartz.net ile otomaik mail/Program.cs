@@ -47,7 +47,7 @@ public class MailJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
 
-        // Mail gönderme iilemi
+        // Mail gönderme islemi
         // string to = kimeYollanacak;
         string from = "email";
         string subject = "Company";
