@@ -49,8 +49,8 @@ public class MailJob : IJob
 
         // Mail gönderme iilemi
         // string to = kimeYollanacak;
-        string from = "testhesabi9@outlook.com";
-        string subject = "MYSÝLO";
+        string from = "email";
+        string subject = "Company";
         string body = "This is a test mail. Sent on: " + DateTime.Now.ToString();
 
         if (secilenDeger == "SSL")
